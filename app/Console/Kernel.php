@@ -15,7 +15,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('evochii:metabolism')->hourly();
+        $schedule->command('evochii:daily-reset')->dailyAt('23:59');
     }
 
     /**

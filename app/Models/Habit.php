@@ -26,6 +26,10 @@ class Habit extends Model
         'reward_energy',
         'reward_happiness',
         'reward_health',
+        'energy_impact',
+        'focus_impact',
+        'zen_impact',
+        'xp_reward',
     ];
 
     protected $casts = [
@@ -66,18 +70,22 @@ class Habit extends Model
 
         // Aplicar recompensas al tamagochi
         $tamagochi = $this->user->tamagochi;
+        $rewardResult = null;
         if ($tamagochi) {
-            $tamagochi->applyHabitReward($this);
+            $rewardResult = $tamagochi->applyHabitReward($this);
         }
 
         return [
             'success' => true,
             'message' => '¡Hábito completado!',
             'streak' => $this->current_streak,
+            'has_evolved' => $rewardResult['has_evolved'] ?? false,
+            'xp_gained' => $rewardResult['xp_gained'] ?? 0,
+            'tamagochi' => $rewardResult['tamagochi'] ?? $tamagochi,
             'rewards' => [
-                'energy' => $this->reward_energy,
-                'happiness' => $this->reward_happiness,
-                'health' => $this->reward_health,
+                'energy' => $this->energy_impact + ($this->reward_energy ?? 0),
+                'foco' => $this->focus_impact,
+                'zen' => $this->zen_impact,
             ]
         ];
     }

@@ -49,35 +49,48 @@ class TamagochiController extends Controller
         ]);
 
         // Crear hábitos predefinidos si se seleccionaron
-        if (!empty($validated['habits'])) {
+        if (isset($validated['habits'])) {
             $predefinedHabits = [
-                'sleep' => ['name' => '💤 Rutina pre-dormir', 'category' => 'salud', 'reward_energy' => 10],
-                'exercise' => ['name' => '🏋️ Ejercicio diario', 'category' => 'ejercicio', 'reward_energy' => 15],
-                'food' => ['name' => '🍎 Alimentación sana', 'category' => 'salud', 'reward_energy' => 5],
-                'mobile' => ['name' => '📵 Limitar móvil', 'category' => 'productividad', 'reward_energy' => 10],
-                'read' => ['name' => '📚 Leer / Aprender', 'category' => 'educacion', 'reward_energy' => 5],
-                'stretch' => ['name' => '🧘 Pausa activa', 'category' => 'salud', 'reward_energy' => 5],
-                'water' => ['name' => '💧 Beber Agua', 'category' => 'salud', 'reward_energy' => 5],
-                'meditate' => ['name' => '🧠 Meditación', 'category' => 'zen', 'reward_energy' => 10],
-                'plan' => ['name' => '📅 Planificar Día', 'category' => 'productividad', 'reward_energy' => 10],
-                'thanks' => ['name' => '✨ Agradecimiento', 'category' => 'zen', 'reward_energy' => 5],
-                'order' => ['name' => '🏠 Orden y Limpieza', 'category' => 'productividad', 'reward_energy' => 5],
+                'sleep'    => ['name' => '💤 Rutina pre-dormir', 'category' => 'salud',         'energy' => 30, 'focus' => 0,  'zen' => 20, 'xp' => 15],
+                'exercise' => ['name' => '🏋️ Ejercicio diario',  'category' => 'ejercicio',     'energy' => -10, 'focus' => 20, 'zen' => 0,  'xp' => 20],
+                'food'     => ['name' => '🍎 Alimentación sana', 'category' => 'salud',         'energy' => 10, 'focus' => 0,  'zen' => 5,  'xp' => 10],
+                'mobile'   => ['name' => '📵 Limitar móvil',     'category' => 'productividad', 'energy' => 0,  'focus' => 15, 'zen' => 10, 'xp' => 10],
+                'read'     => ['name' => '📚 Leer / Aprender',    'category' => 'educacion',     'energy' => -5, 'focus' => 20, 'zen' => 0,  'xp' => 15],
+                'stretch'  => ['name' => '🧘 Pausa activa',      'category' => 'salud',         'energy' => 10, 'focus' => 5,  'zen' => 10, 'xp' => 10],
+                'water'    => ['name' => '💧 Beber Agua',        'category' => 'salud',         'energy' => 15, 'focus' => 0,  'zen' => 10, 'xp' => 10],
+                'meditate' => ['name' => '🧠 Meditación',        'category' => 'zen',           'energy' => 0,  'focus' => 10, 'zen' => 25, 'xp' => 15],
+                'plan'     => ['name' => '📅 Planificar Día',    'category' => 'productividad', 'energy' => 0,  'focus' => 15, 'zen' => 5,  'xp' => 10],
+                'thanks'   => ['name' => '✨ Agradecimiento',     'category' => 'zen',           'energy' => 0,  'focus' => 0,  'zen' => 20, 'xp' => 10],
+                'order'    => ['name' => '🏠 Orden y Limpieza',   'category' => 'productividad', 'energy' => 0,  'focus' => 10, 'zen' => 10, 'xp' => 10],
+                'journal'  => ['name' => '📔 Diario Personal',   'category' => 'zen',           'energy' => 0,  'focus' => 5,  'zen' => 15, 'xp' => 10],
             ];
 
+            $selectedNames = [];
             foreach ($validated['habits'] as $habitKey) {
                 if (isset($predefinedHabits[$habitKey])) {
+                    $selectedNames[] = $predefinedHabits[$habitKey]['name'];
                     $user->habits()->updateOrCreate(
                         ['name' => $predefinedHabits[$habitKey]['name']],
                         [
                             'category' => $predefinedHabits[$habitKey]['category'],
                             'frequency' => 'diario',
                             'target_count' => 1,
-                            'reward_energy' => $predefinedHabits[$habitKey]['reward_energy'],
+                            'energy_impact' => $predefinedHabits[$habitKey]['energy'],
+                            'focus_impact' => $predefinedHabits[$habitKey]['focus'],
+                            'zen_impact' => $predefinedHabits[$habitKey]['zen'],
+                            'xp_reward' => $predefinedHabits[$habitKey]['xp'],
                             'is_active' => true,
                         ]
                     );
                 }
             }
+
+            // Desactivar hábitos predefinidos que NO fueron seleccionados
+            $predefinedNames = array_column($predefinedHabits, 'name');
+            $user->habits()
+                ->whereIn('name', $predefinedNames)
+                ->whereNotIn('name', $selectedNames)
+                ->update(['is_active' => false]);
         }
 
         return response()->json([

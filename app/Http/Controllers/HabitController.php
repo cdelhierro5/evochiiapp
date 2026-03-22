@@ -35,16 +35,21 @@ class HabitController extends Controller
             'category' => 'required|in:salud,productividad,ejercicio,social,educacion,otro',
             'frequency' => 'required|in:diario,semanal,mensual',
             'target_count' => 'nullable|integer|min:1|max:20',
-            'reward_energy' => 'nullable|integer|min:0|max:20',
+            'reward_energy' => 'nullable|integer|min:-100|max:100',
             'reward_happiness' => 'nullable|integer|min:0|max:20',
             'reward_health' => 'nullable|integer|min:0|max:20',
+            'energy_impact' => 'nullable|integer|min:-100|max:100',
+            'focus_impact' => 'nullable|integer|min:-100|max:100',
+            'zen_impact' => 'nullable|integer|min:-100|max:100',
+            'xp_reward' => 'nullable|integer|min:0|max:1000',
         ]);
 
         $habit = $request->user()->habits()->create(array_merge($validated, [
             'target_count' => $validated['target_count'] ?? 1,
-            'reward_energy' => $validated['reward_energy'] ?? 5,
-            'reward_happiness' => $validated['reward_happiness'] ?? 10,
-            'reward_health' => $validated['reward_health'] ?? 5,
+            'energy_impact' => $validated['energy_impact'] ?? ($validated['reward_energy'] ?? 5),
+            'focus_impact' => $validated['focus_impact'] ?? 0,
+            'zen_impact' => $validated['zen_impact'] ?? ($validated['reward_happiness'] ?? 5),
+            'xp_reward' => $validated['xp_reward'] ?? 10,
         ]));
 
         return response()->json([
@@ -67,9 +72,13 @@ class HabitController extends Controller
             'frequency' => 'sometimes|in:diario,semanal,mensual',
             'target_count' => 'sometimes|integer|min:1|max:20',
             'is_active' => 'sometimes|boolean',
-            'reward_energy' => 'sometimes|integer|min:0|max:20',
+            'reward_energy' => 'sometimes|integer|min:-100|max:100',
             'reward_happiness' => 'sometimes|integer|min:0|max:20',
             'reward_health' => 'sometimes|integer|min:0|max:20',
+            'energy_impact' => 'sometimes|integer|min:-100|max:100',
+            'focus_impact' => 'sometimes|integer|min:-100|max:100',
+            'zen_impact' => 'sometimes|integer|min:-100|max:100',
+            'xp_reward' => 'sometimes|integer|min:0|max:1000',
         ]);
 
         $habit->update($validated);
@@ -111,15 +120,14 @@ class HabitController extends Controller
             ], 400);
         }
 
-        // Recargar tamagochi para devolver estado actualizado
-        $tamagochi = $request->user()->tamagochi;
-
         return response()->json([
             'message' => '🎉 ' . $result['message'],
             'data' => $habit->fresh(),
             'streak' => $result['streak'],
             'rewards' => $result['rewards'],
-            'tamagochi' => $tamagochi,
+            'xp_gained' => $result['xp_gained'] ?? 0,
+            'has_evolved' => $result['has_evolved'] ?? false,
+            'tamagochi' => $result['tamagochi'] ?? $request->user()->tamagochi,
         ], 200);
     }
 

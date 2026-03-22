@@ -169,6 +169,12 @@
         .spring .env-visual { background: linear-gradient(to bottom, #100520, #2d1b4d); }
         .summer .env-visual { background: linear-gradient(to bottom, #051020, #142850); }
         .autumn .env-visual { background: linear-gradient(to bottom, #201005, #5d2e13); }
+
+        /* DAY VARIANTS */
+        .avatar-container.day.winter .env-visual { background: linear-gradient(to bottom, #e0faff, #80dfff) !important; }
+        .avatar-container.day.spring .env-visual { background: linear-gradient(to bottom, #f0e6ff, #bc9bff) !important; }
+        .avatar-container.day.summer .env-visual { background: linear-gradient(to bottom, #e0f0ff, #4da3ff) !important; }
+        .avatar-container.day.autumn .env-visual { background: linear-gradient(to bottom, #fff0e6, #ffb380) !important; }
         /* HEADER CLOCK */
         .header-clock { text-align: center; flex: 1; }
         #h-time { font-family: 'JetBrains Mono', monospace; font-size: 1.2em; font-weight: 800; color: var(--neon-blue); }
@@ -239,7 +245,7 @@
         }
 
         .celestial-body {
-            position: absolute; top: 15px; right: 25px; font-size: 2.2rem;
+            position: absolute; top: 35px; right: 35px; font-size: 2.2rem;
             filter: drop-shadow(0 0 10px currentColor); transition: all 2s; z-index: 1;
         }
 
@@ -254,70 +260,71 @@
             display: flex; justify-content: center; align-items: center;
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: inset -8px -8px 15px rgba(0,0,0,0.1), inset 8px 8px 20px rgba(255,255,255,0.4), 0 10px 30px rgba(0,0,0,0.3);
+            background: #fff;
         }
 
-        /* SPECIES BIOLOGY */
-        .face-chick  { background: radial-gradient(circle at 30% 30%, #fff275, #ffeb3b 60%, #fbc02d); }
-        .face-frog   { background: radial-gradient(circle at 30% 30%, #a2ff75, #4caf50 60%, #2e7d32); }
-        .face-cat    { background: radial-gradient(circle at 30% 30%, #ff80ab, #e91e63 60%, #880e4f); }
-        .face-dog    { background: radial-gradient(circle at 30% 30%, #ffa726, #ef6c00 60%, #bf360c); }
-        .face-panda  { background: radial-gradient(circle at 30% 30%, #ffffff, #e0e0e0 60%, #9e9e9e); }
-        .face-robot  { background: radial-gradient(circle at 30% 30%, #b0bec5, #78909c 60%, #37474f); border-radius: 24px; }
-        .face-ghost  { background: radial-gradient(circle at 30% 30%, #f5f5f5, #e0e0e0 60%, #ffffff); opacity: 0.8; }
-        .face-alien  { background: radial-gradient(circle at 30% 30%, #ccff00, #9dff00 60%, #00ff99); }
-        .face-dragon { background: radial-gradient(circle at 30% 30%, #ff5252, #d32f2f 60%, #b71c1c); }
-        .face-unicorn{ background: radial-gradient(circle at 30% 30%, #f8bbd0, #f06292 60%, #ad1457); }
-        .face-monkey { background: radial-gradient(circle at 30% 30%, #8d6e63, #5d4037 60%, #3e2723); }
-        .face-owl    { background: radial-gradient(circle at 30% 30%, #d7ccc8, #a1887f 60%, #4e342e); }
-        .face-fox    { background: radial-gradient(circle at 30% 30%, #ffb74d, #fb8c00 60%, #e65100); }
-        .face-koala  { background: radial-gradient(circle at 30% 30%, #cfd8dc, #90a4ae 60%, #455a64); }
-        .face-penguin{ background: radial-gradient(circle at 30% 30%, #424242, #212121 60%, #000000); }
-        .face-lion   { background: radial-gradient(circle at 30% 30%, #ffc107, #ff9800 60%, #e65100); }
-        .face-tiger  { background: radial-gradient(circle at 30% 30%, #ff9800, #fb8c00 60%, #212121 95%); }
-        .face-raccoon{ background: radial-gradient(circle at 30% 30%, #9e9e9e, #616161 60%, #212121); }
-        .face-wizard { background: radial-gradient(circle at 30% 30%, #9575cd, #673ab7 60%, #311b92); }
-        .face-hamster{ background: radial-gradient(circle at 30% 30%, #ffe0b2, #ffcc80 60%, #a1887f); }
+
+        /* REACIVE STATES CSS v3.0 */
+        .state-flow { 
+            animation: flow-glow 3s infinite alternate; 
+            filter: drop-shadow(0 0 20px var(--neon-blue));
+        }
+        @keyframes flow-glow { 
+            0% { transform: scale(1); filter: brightness(1) drop-shadow(0 0 10px var(--neon-blue)); }
+            100% { transform: scale(1.03); filter: brightness(1.2) drop-shadow(0 0 25px var(--neon-blue)); }
+        }
+
+        .state-burnout { 
+            filter: sepia(0.5) hue-rotate(-50deg) saturate(1.5);
+            animation: burnout-shake 0.5s infinite;
+        }
+        @keyframes burnout-shake {
+            0%, 100% { transform: translate(0,0); }
+            25% { transform: translate(1px, -1px); }
+            75% { transform: translate(-1px, 1px); }
+        }
+
+        .state-zombi {
+            filter: grayscale(0.9) contrast(0.8);
+            animation: zombi-droop 4s infinite ease-in-out;
+        }
+        @keyframes zombi-droop {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(15px) rotate(2deg); }
+        }
+
+        .state-caotico {
+            animation: chaotic-glitch 0.2s infinite;
+        }
+        @keyframes chaotic-glitch {
+            0% { clip-path: inset(0 0 0 0); transform: translate(0); }
+            20% { clip-path: inset(10% 0 40% 0); transform: translate(-2px, 2px); }
+            40% { clip-path: inset(30% 0 10% 0); transform: translate(2px, -2px); }
+            60% { clip-path: inset(50% 0 5% 0); transform: translate(-1px, 1px); }
+            80% { clip-path: inset(0 0 60% 0); transform: translate(1px, -1px); }
+            100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+        }
+
+        /* EVOLUTION AURAS */
+        .evolved-aura {
+            position: absolute; width: 150%; height: 150%;
+            background: radial-gradient(circle, var(--neon-blue) 0%, transparent 70%);
+            opacity: 0.15; z-index: -1; animation: rotate-aura 10s linear infinite;
+        }
+        @keyframes rotate-aura { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
         /* SPECIES FEATURES (Ears/Horns/Etc) */
         .evo-face::before, .evo-face::after { content: ''; position: absolute; transition: all 0.5s; z-index: -1; }
-        
-        /* 1. Pointy Ears (Cat, Fox, Tiger) */
-        .face-cat::before, .face-cat::after, .face-fox::before, .face-fox::after, .face-tiger::before, .face-tiger::after {
-            width: 45px; height: 45px; background: inherit; top: -18px; clip-path: polygon(50% 0, 0 100%, 100% 100%);
-        }
-        .face-cat::before, .face-fox::before, .face-tiger::before { left: 5px; transform: rotate(-20deg); }
-        .face-cat::after, .face-fox::after, .face-tiger::after   { right: 5px; transform: rotate(20deg); }
-
-        /* 2. Round Ears (Panda, Monkey, Koala, Lion, Raccoon, Hamster) */
-        .face-panda::before, .face-panda::after, .face-monkey::before, .face-monkey::after, .face-koala::before, .face-koala::after,
-        .face-lion::before, .face-lion::after, .face-raccoon::before, .face-raccoon::after, .face-hamster::before, .face-hamster::after {
-            width: 45px; height: 45px; background: inherit; top: -8px; border-radius: 50%;
-        }
-        .face-panda::before, .face-monkey::before, .face-koala::before, .face-lion::before, .face-raccoon::before, .face-hamster::before { left: -8px; }
-        .face-panda::after, .face-monkey::after, .face-koala::after, .face-lion::after, .face-raccoon::after, .face-hamster::after { right: -8px; }
-        .face-panda::before, .face-panda::after, .face-raccoon::before, .face-raccoon::after { background: #212121; }
-        .face-lion::before { width: 150px; height: 150px; border-radius: 50%; background: #e65100; top: -10px; left: -10px; z-index: -2; opacity: 0.8; }
-
-        /* 3. Special Species (Robot, Dragon, Unicorn, Penguin, Wizard) */
-        .face-robot::before { width: 4px; height: 35px; background: #607d8b; top: -30px; left: 50%; transform: translateX(-50%); }
-        .face-robot::after  { width: 12px; height: 12px; background: var(--neon-pink); top: -40px; left: 50%; transform: translateX(-50%); border-radius: 50%; box-shadow: 0 0 15px var(--neon-pink); }
-        
-        .face-dragon::before, .face-dragon::after { width: 25px; height: 55px; background: #ffeb3b; top: -30px; clip-path: polygon(50% 0, 0 100%, 100% 100%); }
-        .face-dragon::before { left: 20px; transform: rotate(-30deg); } .face-dragon::after { right: 20px; transform: rotate(30deg); }
-        
-        .face-unicorn::before { width: 18px; height: 70px; background: linear-gradient(to top, #fff, #9d00ff); top: -55px; left: 50%; transform: translateX(-50%); clip-path: polygon(50% 0, 0 100%, 100% 100%); }
-        
-        .face-penguin::before { width: 70px; height: 70px; background: white; bottom: 0; border-radius: 50%; z-index: 0; }
-        .face-wizard::before  { width: 140px; height: 80px; background: #4a148c; top: -60px; left: 50%; transform: translateX(-50%); clip-path: polygon(50% 0, 0 100%, 100% 100%); }
 
         /* Eyes with Pupiles & Reflections */
         .eye {
             position: absolute; width: 22px; height: 22px;
             background: #1a1a1a; border-radius: 50%; top: 35%;
             overflow: hidden; border: 2px solid rgba(0,0,0,0.1);
+            transition: all 0.5s;
         }
-        .eye.left { left: 22%; }
-        .eye.right { right: 22%; }
+        .eye.left { left: 24%; }
+        .eye.right { right: 24%; }
 
         .eye::after { /* Reflection */
             content: ''; position: absolute; width: 6px; height: 6px;
@@ -335,14 +342,21 @@
         .beak {
             position: absolute; width: 24px; height: 18px; background: #ff9800; clip-path: polygon(0 0, 100% 0, 50% 100%);
             top: 55%; transition: all 0.3s; box-shadow: 0 4px 5px rgba(0,0,0,0.2); z-index: 3;
+            display: none; /* OCULTO POR DEFECTO */
         }
+        .face-chick .beak, .face-owl .beak, .face-penguin .beak { display: block !important; }
 
         .nose {
             position: absolute; width: 12px; height: 8px; background: rgba(0,0,0,0.2); border-radius: 50%;
-            top: 58%; transition: all 0.3s; z-index: 3; display: none;
+            top: 58%; transition: all 0.3s; z-index: 3; 
+            display: none; /* OCULTO POR DEFECTO */
         }
-        .face-koala .nose { width: 20px; height: 26px; background: #333; border-radius: 12px 12px 8px 8px; top: 48%; display: block; }
-        .face-cat .nose, .face-dog .nose, .face-fox .nose { width: 10px; height: 6px; background: #333; display: block; }
+        .face-cat .nose, .face-dog .nose, .face-fox .nose, .face-koala .nose, .face-monkey .nose, .face-panda .nose, .face-dragon .nose, .face-unicorn .nose, .face-lion .nose, .face-tiger .nose, .face-raccoon .nose, .face-hamster .nose, .face-mouse .nose, .face-wizard .nose { 
+            display: block !important; 
+        }
+        
+        .face-koala .nose { width: 20px; height: 26px; background: #333; border-radius: 12px 12px 8px 8px; top: 48%; }
+        .face-cat .nose, .face-dog .nose, .face-fox .nose { width: 10px; height: 6px; background: #333; }
 
         .blush {
             position: absolute; width: 20px; height: 10px;
@@ -353,34 +367,115 @@
         .blush.right { right: 15%; }
         .state-high .blush { opacity: 1; }
 
-        /* Specific Styles */
+        /* Specific Styles - Bestiary (Rich Profiles) */
         .face-chick { background: radial-gradient(circle at 30% 30%, #fff275, #ffeb3b 60%, #fbc02d); }
         .face-frog { background: radial-gradient(circle at 30% 30%, #a5d6a7, #4caf50 60%, #2e7d32); }
-        .face-fox { background: radial-gradient(circle at 30% 30%, #ffab91, #ff5722 60%, #d84315); }
+        .face-fox { 
+            background: 
+                radial-gradient(ellipse at 50% 105%, #fff 45%, transparent 50%), 
+                radial-gradient(circle at 30% 30%, #ffccbc, #ff5722 70%, #d84315);
+            border: 1px solid #d84315;
+        }
+        .face-fox .eye { top: 30%; }
+        .face-fox .nose { top: 62%; background: #222; }
         .face-panda { 
-            background: #fff; 
-            border: 8px solid #1a1a1a;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+            background: 
+                radial-gradient(ellipse at 32% 44%, #1a1a2e 18%, transparent 20%), 
+                radial-gradient(ellipse at 68% 44%, #1a1a2e 18%, transparent 20%), 
+                #ffffff !important; 
+            height: 110px !important; border-radius: 50% 50% 46% 46% !important;
         }
-        .face-panda .eye { border: 4px solid #1a1a1a; width: 26px; height: 26px; }
-        .face-panda .beak { background: #1a1a1a; width: 12px; height: 8px; border-radius: 50%; clip-path: none; }
-
+        .face-panda .eye { background: #6d4c41; top: 40%; width: 18px; height: 18px; }
+        .face-panda .eye.left { left: 28%; }
+        .face-panda .eye.right { right: 28%; }
+        .face-panda .nose { background: #333; top: 68% !important; }
         .face-cat { background: radial-gradient(circle at 30% 30%, #ffccbc, #ff8a65 60%, #e64a19); }
-        .face-cat::before, .face-cat::after { /* Ears */
-            content: ''; position: absolute; top: -15px; width: 30px; height: 30px;
-            background: inherit; clip-path: polygon(50% 0%, 0% 100%, 100% 100%); z-index: -1;
+        .face-robot { background: linear-gradient(135deg, #b0bec5, #78909c); border-radius: 20px !important; }
+        .face-dog { 
+            background: 
+                radial-gradient(ellipse at 50% 110%, #f5f5f5 40%, transparent 50%),
+                radial-gradient(circle at 30% 30%, #d7ccc8, #a1887f 60%, #5d4037) !important; 
         }
-        .face-cat::before { left: 10px; transform: rotate(-20deg); }
-        .face-cat::after { right: 10px; transform: rotate(20deg); }
+        .face-dog .eye { top: 38%; }
+        .face-dog .nose { width: 14px; height: 10px; background: #444; top: 60%; }
+        .face-mouse { background: radial-gradient(circle at 30% 30%, #f5f5f5, #bdbdbd 60%, #757575); }
+        .face-hamster { background: radial-gradient(circle at 30% 30%, #ffe0b2, #ffb74d 60%, #f57c00); }
+        .face-owl { background: radial-gradient(circle at 30% 30%, #cfd8dc, #90a4ae 60%, #455a64); }
+        .face-lion { background: radial-gradient(circle at 30% 30%, #ffe082, #ffca28 60%, #ff8f00); }
+        .face-tiger { background: repeating-linear-gradient(45deg, #fb8c00, #fb8c00 10px, #212121 10px, #212121 20px); }
+        .face-raccoon { 
+            background: 
+                radial-gradient(ellipse at 32% 44%, #333 16%, transparent 18%), 
+                radial-gradient(ellipse at 68% 44%, #333 16%, transparent 18%),
+                radial-gradient(circle at 30% 30%, #e0e0e0, #9e9e9e 60%, #212121); 
+        }
+        .face-wizard { background: radial-gradient(circle at 30% 30%, #d1c4e9, #7e57c2 60%, #311b92); }
+        .face-alien { background: radial-gradient(circle at 30% 30%, #ccff90, #76ff03 60%, #33691e); }
+        .face-dragon { 
+            background: 
+                radial-gradient(ellipse at 50% 105%, rgba(255,255,255,0.2) 30%, transparent 50%),
+                radial-gradient(circle at 30% 30%, #ff8a80, #f44336 60%, #b71c1c); 
+            border: 2px solid #333;
+        }
+        .face-unicorn { background: linear-gradient(135deg, #f8bbd0, #e1f5fe, #f3e5f5); }
+        .face-monkey { background: radial-gradient(circle at 30% 30%, #d7ccc8, #8d6e63 60%, #4e342e); }
+        .face-koala { background: radial-gradient(circle at 30% 30%, #eceff1, #b0bec5 60%, #546e7a); }
+        .face-penguin { background: radial-gradient(circle at 30% 30%, #ffffff, #263238 80%); }
+        .face-ghost { background: rgba(255,255,255,0.8); border-radius: 50% 50% 15% 15% !important; overflow: hidden; }
 
-        .face-robot { 
-            background: linear-gradient(135deg, #b0bec5, #78909c); 
-            border-radius: 20% 20% 40% 40%;
-            border: 2px solid rgba(0,0,0,0.2);
+        /* Ears & Extras - Consolidated */
+        /* Ears & Extras - Consolidated Section */
+        /* Ears - Pointy (Cat, Tiger, Fox) */
+        .face-cat::before, .face-cat::after, .face-tiger::before, .face-tiger::after, .face-fox::before, .face-fox::after {
+            content:''; position:absolute; z-index:-1; clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
         }
-        .face-robot .eye { background: #000; border: 2px solid #00d1ff; box-shadow: 0 0 10px #00d1ff; }
-        .face-robot .eye::after { background: #00d1ff; }
-        .face-robot .beak { background: #455a64; height: 6px; border-radius: 2px; clip-path: none; width: 40px; }
+        .face-cat::before, .face-cat::after, .face-tiger::before, .face-tiger::after {
+            width:35px; height:35px; background:inherit; top: -12px;
+        }
+        .face-fox::before, .face-fox::after {
+            width:42px; height:52px; background: linear-gradient(to bottom, #212121 28%, #ff5722 28%); top:-25px;
+        }
+        .face-cat::before, .face-tiger::before { left:8px; transform:rotate(-20deg); }
+        .face-cat::after, .face-tiger::after { right:8px; transform:rotate(20deg); }
+        .face-fox::before { left:-6px; transform:rotate(-28deg); }
+        .face-fox::after { right:-6px; transform:rotate(28deg); }
+
+        /* Ears - Round / Droopy (Dog, Mouse, Hamster, Koala, Panda, Monkey, Raccoon) */
+        .face-dog::before, .face-dog::after, .face-mouse::before, .face-mouse::after, .face-hamster::before, .face-hamster::after, .face-koala::before, .face-koala::after, .face-panda::before, .face-panda::after, .face-monkey::before, .face-monkey::after, .face-raccoon::before, .face-raccoon::after {
+            content:''; position:absolute; width:45px; height:45px; background:inherit; border-radius:50%; z-index:-1; top:-15px;
+        }
+        .face-dog::before, .face-mouse::before, .face-hamster::before, .face-koala::before, .face-panda::before, .face-monkey::before, .face-raccoon::before { left:-10px; }
+        .face-dog::after, .face-mouse::after, .face-hamster::after, .face-koala::after, .face-panda::after, .face-monkey::after, .face-raccoon::after { right:-10px; }
+        
+        /* Dog ears slightly lower and darker */
+        .face-dog::before, .face-dog::after { top: 5px; background: #a1887f; }
+        .face-panda::before, .face-panda::after, .face-raccoon::before, .face-raccoon::after { background: #1a1a2e; }
+
+        .face-mouse::before, .face-mouse::after, .face-hamster::before, .face-hamster::after, .face-koala::before, .face-koala::after {
+            content:''; position:absolute; top:-20px; width:45px; height:45px; background:inherit; border-radius:50%; z-index:-1;
+        }
+        .face-mouse::before, .face-hamster::before, .face-koala::before { left:-10px; }
+        .face-mouse::after, .face-hamster::after, .face-koala::after { right:-10px; }
+
+        .face-dragon::before, .face-dragon::after {
+            content:''; position:absolute; top:-30px; width:20px; height:40px; background:#ffeb3b; clip-path: polygon(50% 0%, 0% 100%, 100% 100%); z-index:-1;
+        }
+        .face-dragon::before { left:20px; transform:rotate(-30deg); }
+        .face-dragon::after { right:20px; transform:rotate(30deg); }
+
+        .face-unicorn::before {
+            content:''; position:absolute; top:-50px; left:50%; transform:translateX(-50%); width:15px; height:60px;
+            background:linear-gradient(to top, #fff, #ffd54f); clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+        
+        .face-alien::before, .face-alien::after { content:''; position:absolute; top:-40px; width:4px; height:40px; background:#76ff03; }
+        .face-alien::before { left:30px; transform:rotate(-20deg); }
+        .face-alien::after { right:30px; transform:rotate(20deg); }
+
+        .face-ghost::after {
+            content:''; position:absolute; bottom:-20px; left:0; width:100%; height:30px; background:inherit;
+            clip-path: polygon(0% 0%, 20% 100%, 40% 0%, 60% 100%, 80% 0%, 100% 100%, 100% 0%);
+        }
 
         /* EVO ANIMS */
         .anim-idle { animation: evo-float 3s ease-in-out infinite; }
@@ -393,6 +488,7 @@
         @keyframes evo-bounce { 0%, 100% { transform: translateY(0) scale(1, 1); } 50% { transform: translateY(-30px) scale(0.9, 1.1); } }
         @keyframes evo-droop { 0%, 100% { transform: translateY(0) scale(1, 1); filter: grayscale(0.5); } 50% { transform: translateY(8px) scale(1.1, 0.85); filter: grayscale(0.8); } }
         @keyframes evo-shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px) rotate(-3deg); } 75% { transform: translateX(4px) rotate(3deg); } }
+
         @keyframes evo-pulse-intense { 0%, 100% { transform: scale(1); filter: brightness(1.1); } 50% { transform: scale(1.08); filter: brightness(1.3); } }
 
         .stats-panel { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; margin-bottom: 50px; }
@@ -460,6 +556,7 @@
 
         <div style="display: flex; gap: 10px; align-items: center;">
             <button class="nav-btn" onclick="toggleMode()" id="mode-btn">🌙</button>
+            <button class="nav-btn" onclick="showView('world')" style="border-color: var(--neon-purple); color: var(--neon-purple);">🌐 Evochii World</button>
             <button class="nav-btn" onclick="openSettings()" data-i18n="lang_options">⚙️ Configuración</button>
             <button class="nav-btn logout-btn" onclick="logout()" data-i18n="lang_logout">🚪 Desconectar</button>
         </div>
@@ -613,6 +710,26 @@
                 <div id="habits-list"><div style="text-align:center; padding: 20px; color: var(--text-dim);" data-i18n="lang_msg_loading">Cargando tu plan biótico...</div></div>
             </div>
         </div>
+
+        <!-- SECCIÓN EVO-WORLD -->
+        <div id="section-world" class="container" style="display: none; padding-bottom: 100px;">
+            <div class="habits-section" style="margin-top: 20px; border-top: none;">
+                <h2 data-i18n="lang_world_title">🌍 COMUNIDAD EVO-WORLD</h2>
+                <p style="text-align: center; color: var(--text-dim); margin-bottom: 30px;" data-i18n="lang_world_desc">Conecta con otros Evochiis y revisa los rankings globales.</p>
+                
+                <div class="stats-panel" style="margin-bottom: 30px;">
+                    <button class="action-btn" onclick="loadWorldRankings()" style="border-radius: 12px; padding: 10px;">🏆 Rankings</button>
+                    <button class="action-btn" onclick="loadWorldFriends()" style="border-radius: 12px; padding: 10px;">👥 Amigos</button>
+                </div>
+
+                <div id="world-content-list" style="display: grid; gap: 15px;">
+                    <!-- Cargando contenido... -->
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="nav-btn" onclick="showView('dashboard')" data-i18n="lang_back">Volver al Dashboard</button>
+            </div>
+        </div>
     </div>
 
     <div id="message" class="message"></div>
@@ -647,7 +764,8 @@
             lang_msg_sync_ok: 'Evochii sincronizado con éxito.', lang_msg_select_habit: 'Selecciona al menos un hábito para tu evolución.',
             lang_msg_error_load: 'No pudimos cargar tus hábitos.', lang_msg_error_conn: 'Error de conexión con el Plan de Éxito.',
             lang_msg_no_habits: 'No hay hábitos configurados aún. Ve a Ajustes.', lang_msg_streak: 'RACHA',
-            lang_msg_loading: 'Cargando tu plan biótico...', lang_msg_protocol: '¡PROTOCOLO PENDIENTE!'
+            lang_msg_loading: 'Cargando tu plan biótico...', lang_msg_protocol: '¡PROTOCOLO PENDIENTE!',
+            lang_world_title: 'Evochii World', lang_world_desc: 'Conecta con otros Evochiis y revisa los rankings globales.'
         },
         en: {
             lang_foco: 'FOCUS', lang_energy: 'ENERGY', lang_zen: 'ZEN',
@@ -673,7 +791,8 @@
             lang_msg_sync_ok: 'Evochii synced successfully.', lang_msg_select_habit: 'Select at least one habit for your evolution.',
             lang_msg_error_load: 'Could not load your habits.', lang_msg_error_conn: 'Error connecting to the Success Plan.',
             lang_msg_no_habits: 'No habits configured. Go to Settings.', lang_msg_streak: 'STREAK',
-            lang_msg_loading: 'Loading your biotic plan...', lang_msg_protocol: 'PENDING PROTOCOL!'
+            lang_msg_loading: 'Loading your biotic plan...', lang_msg_protocol: 'PENDING PROTOCOL!',
+            lang_world_title: 'Evochii World', lang_world_desc: 'Connect with other Evochiis and check global rankings.'
         },
         pt: {
             lang_foco: 'FOCO', lang_energy: 'ENERGIA', lang_zen: 'ZEN',
@@ -699,7 +818,8 @@
             lang_msg_sync_ok: 'Evochii sincronizado com sucesso.', lang_msg_select_habit: 'Selecione pelo menos um hábito.',
             lang_msg_error_load: 'Erro ao carregar hábitos.', lang_msg_error_conn: 'Erro de conexão com o Plano de Sucesso.',
             lang_msg_no_habits: 'Sem hábitos configurados. Vá em Ajustes.', lang_msg_streak: 'SEQUÊNCIA',
-            lang_msg_loading: 'Carregando seu plano biótico...', lang_msg_protocol: 'PROTOCOLO PENDENTE!'
+            lang_msg_loading: 'Carregando seu plano biótico...', lang_msg_protocol: 'PROTOCOLO PENDENTE!',
+            lang_world_title: 'Evochii World', lang_world_desc: 'Conecte-se com otros Evochiis e veja os rankings globais.'
         },
         de: {
             lang_foco: 'FOKUS', lang_energy: 'ENERGIE', lang_zen: 'ZEN',
@@ -725,7 +845,8 @@
             lang_msg_sync_ok: 'Evochii synchronisiert.', lang_msg_select_habit: 'Wähle mindestens eine Gewohnheit.',
             lang_msg_error_load: 'Gewohnheiten laden fehlgeschlagen.', lang_msg_error_conn: 'Verbindung zum Erfolgsplan fehlgeschlagen.',
             lang_msg_no_habits: 'Keine Gewohnheiten. Gehe zu Einstellungen.', lang_msg_streak: 'SERIE',
-            lang_msg_loading: 'Lade dein biotisches Plan...', lang_msg_protocol: 'PROTOKOLL AUSSTEHEND!'
+            lang_msg_loading: 'Lade dein biotisches Plan...', lang_msg_protocol: 'PROTOKOLL AUSSTEHEND!',
+            lang_world_title: 'Evochii World', lang_world_desc: 'Verbinde dich mit anderen Evochiis und sieh dir die Rankings an.'
         },
         fr: {
             lang_foco: 'FOCUS', lang_energy: 'ÉNERGIE', lang_zen: 'ZEN',
@@ -751,7 +872,8 @@
             lang_msg_sync_ok: 'Evochii synchronisé.', lang_msg_select_habit: 'Choisissez au moins une habitude.',
             lang_msg_error_load: 'Erreur chargement habitudes.', lang_msg_error_conn: 'Erreur connexion au Plan de Succès.',
             lang_msg_no_habits: 'Pas d\'habitudes. Allez dans Config.', lang_msg_streak: 'SÉRIE',
-            lang_msg_loading: 'Chargement de votre plan biotique...', lang_msg_protocol: 'PROTOCOLE EN ATTENTE!'
+            lang_msg_loading: 'Chargement de votre plan biotique...', lang_msg_protocol: 'PROTOCOLE EN ATTENTE!',
+            lang_world_title: 'Evochii World', lang_world_desc: 'Connectez-vous avec d\'autres Evochiis et consultez les classements.'
         }
     };
 
@@ -828,8 +950,13 @@
         const env = container.querySelector('.env-visual');
 
         // Día/Noche
-        if (hour >= 8 && hour < 20) body.classList.add('light-mode');
-        else body.classList.remove('light-mode');
+        if (hour >= 8 && hour < 20) {
+            body.classList.add('light-mode');
+            container.classList.add('day');
+        } else {
+            body.classList.remove('light-mode');
+            container.classList.remove('day');
+        }
 
         // Estaciones
         container.classList.remove('winter', 'spring', 'summer', 'autumn');
@@ -854,11 +981,11 @@
         celestial.textContent = isDay ? '☀️' : (season === 'winter' ? '🏔️' : '🌙');
         env.appendChild(celestial);
 
-        // Partículas
+        // Partículas (Solo 1 objeto característico por estación)
         const configs = {
             winter: { emoji: '❄️', count: 8 },
             spring: { emoji: '🌸', count: 6 },
-            summer: { emoji: '🔥', count: 4 },
+            summer: { emoji: '☀️', count: 7 },
             autumn: { emoji: '🍂', count: 7 }
         };
         const conf = configs[season];
@@ -906,6 +1033,12 @@
         const selected = document.querySelector(`.avatar-opt[data-key="${key}"]`);
         if (selected) selected.classList.add('selected');
         document.getElementById('selectedAvatar').value = key;
+        
+        // Previsualización dinámica inmediata
+        if (tamagochi) {
+            tamagochi.avatar = key;
+            updateAvatarVisual();
+        }
     }
 
     function setGoal(g) {
@@ -918,6 +1051,7 @@
     async function loadTamagochi() {
         updateUI(); 
         const token = localStorage.getItem('auth_token');
+        if (!token) return;
         try {
             const res = await fetch(`${API_URL}/tamagochi`, { headers: {'Authorization':`Bearer ${token}`,'Accept':'application/json'} });
             const data = await res.json();
@@ -929,47 +1063,67 @@
                     updateDisplay(); 
                 }
                 if (tamagochi.current_thought) showThought(tamagochi.current_thought);
+            } else if (res.status === 404) {
+                // Nuevo usuario sin tamagochi
+                showOnboarding();
             }
         } catch(e){ 
             console.error("Error loadTamagochi:", e);
-            const dict = I18N[currentLang] || I18N['es'];
-            showMessage(dict['lang_msg_error_conn'] || 'Error', 'error');
         }
     }
 
-    function showOnboarding() { document.getElementById('onboarding-screen').style.display='flex'; document.getElementById('main-dashboard').style.opacity='0.1'; }
+    function showOnboarding() { 
+        showView('settings');
+    }
 
     document.getElementById('onboarding-form').addEventListener('submit', async (e) => {
         e.preventDefault();
+        const btn = e.target.querySelector('button[type="submit"]');
+        if (btn) btn.disabled = true;
+        
         const token = localStorage.getItem('auth_token');
         const dict = I18N[currentLang] || I18N['es'];
-        if (selectedHabits.length === 0) { showMessage(dict['lang_msg_select_habit'], 'error'); return; }
+        
+        if (selectedHabits.length === 0) { 
+            showMessage(dict['lang_msg_select_habit'], 'error'); 
+            if (btn) btn.disabled = false;
+            return; 
+        }
         
         const payload = { 
             contextoVital: JSON.stringify({
                 habitos: selectedHabits,
-                edad: document.getElementById('bio-age').value,
-                trabajo: document.getElementById('bio-job').value,
-                objetivo: document.getElementById('selectedGoal').value,
+                edad: document.getElementById('bio-age')?.value || '25',
+                trabajo: document.getElementById('bio-job')?.value || 'Oficina',
+                objetivo: document.getElementById('selectedGoal')?.value || 'Productividad',
                 timestamp_sync: new Date().toISOString()
             }),
-            personalidadIA: document.getElementById('personalidadIA').value,
-            avatar: document.getElementById('selectedAvatar').value,
+            personalidadIA: document.getElementById('personalidadIA')?.value || 'Colega sarcástico',
+            avatar: document.getElementById('selectedAvatar')?.value || 'chick',
             habits: selectedHabits
         };
+
         try {
             const res = await fetch(`${API_URL}/tamagochi/sync`, {
                 method: 'POST', headers: {'Authorization':`Bearer ${token}`,'Content-Type':'application/json','Accept':'application/json'},
                 body: JSON.stringify(payload)
             });
+            const data = await res.json();
             if (res.ok) { 
-                loadHabits();
-                loadTamagochi();
-                const dict = I18N[currentLang] || I18N['es'];
-                showMessage(dict['lang_msg_sync_ok'], 'success');
-                closeSettings();
+                await loadHabits();
+                await loadTamagochi();
+                showMessage(dict['lang_msg_sync_ok'] || '✅ Sincronizado', 'success');
+                setTimeout(() => closeSettings(), 500);
+            } else {
+                console.error("Sync Error:", data);
+                showMessage(data.message || 'Error al guardar', 'error');
             }
-        } catch(e){ console.error(e); }
+        } catch(e){ 
+            console.error("Sync Exception:", e);
+            showMessage('Error de conexión', 'error');
+        } finally {
+            if (btn) btn.disabled = false;
+        }
     });
 
     async function interact(action) {
@@ -985,14 +1139,115 @@
     }
 
     function updateDisplay() {
-        document.getElementById('foco-value').textContent = `${tamagochi.foco}%`;
-        document.getElementById('foco-bar').style.width = `${tamagochi.foco}%`;
-        document.getElementById('energia-value').textContent = `${tamagochi.energy}%`;
-        document.getElementById('energia-bar').style.width = `${tamagochi.energy}%`;
-        document.getElementById('zen-value').textContent = `${tamagochi.zen}%`;
-        document.getElementById('zen-bar').style.width = `${tamagochi.zen}%`;
+        if (!tamagochi) return;
+        
+        document.getElementById('foco-value').textContent = `${tamagochi.foco || 0}%`;
+        document.getElementById('foco-bar').style.width = `${tamagochi.foco || 0}%`;
+        document.getElementById('energia-value').textContent = `${tamagochi.energy || 0}%`;
+        document.getElementById('energia-bar').style.width = `${tamagochi.energy || 0}%`;
+        document.getElementById('zen-value').textContent = `${tamagochi.zen || 0}%`;
+        document.getElementById('zen-bar').style.width = `${tamagochi.zen || 0}%`;
+        
+        // Show XP/Level if elements exist (optional but good for RPG feel)
+        console.log(`Lvl: ${tamagochi.level} | XP: ${tamagochi.experience}`);
+
         if (tamagochi.current_thought) showThought(tamagochi.current_thought);
+        
+        evaluateEvochiiState();
         updateAvatarVisual();
+    }
+
+    function evaluateEvochiiState() {
+        const visual = document.getElementById('avatar-visual');
+        if (!visual) return;
+
+        // Remove old states
+        visual.classList.remove('state-flow', 'state-burnout', 'state-zombi', 'state-caotico');
+
+        const f = tamagochi.foco || 0;
+        const e = tamagochi.energy || 0;
+        const z = tamagochi.zen || 0;
+
+        // Logic for States
+        if (f > 70 && e > 70 && z > 70) {
+            visual.classList.add('state-flow');
+        } else if (z < 20) {
+            visual.classList.add('state-burnout');
+            checkAINotifications('burnout', '¡Tu Zen está por los suelos!');
+        } else if (e < 20) {
+            visual.classList.add('state-zombi');
+            checkAINotifications('energy', 'Estás agotado...');
+        } else if (f < 20) {
+            visual.classList.add('state-caotico');
+            checkAINotifications('focus', 'No te puedes concentrar en nada.');
+        }
+
+        // Evolution scaling
+        const scale = 1 + (tamagochi.level - 1) * 0.1;
+        visual.style.transform = `scale(${scale})`;
+        
+        // Add aura if level > 5
+        let aura = document.getElementById('evo-aura');
+        if (tamagochi.level >= 5) {
+            if (!aura) {
+                aura = document.createElement('div');
+                aura.id = 'evo-aura';
+                aura.className = 'evolved-aura';
+                visual.appendChild(aura);
+            }
+        } else if (aura) {
+            aura.remove();
+        }
+    }
+
+    function checkAINotifications(type, baseMsg) {
+        if (!("Notification" in window)) return;
+        if (Notification.permission !== "granted") {
+            Notification.requestPermission();
+            return;
+        }
+
+        // Only notify once per state crossing (simple throttle)
+        const lastNotify = sessionStorage.getItem('last_notify_' + type);
+        const now = Date.now();
+        if (lastNotify && (now - lastNotify < 300000)) return; // 5 min cooldown
+
+        const personality = tamagochi.ai_personality || 'Colega sarcástico';
+        let msg = baseMsg;
+
+        if (personality.includes('sarcástico')) {
+            if (type === 'focus') msg = "Tu Foco está al " + tamagochi.foco + "%. Hasta una mosca tiene más concentración. ¡Lee un poco!";
+            if (type === 'energy') msg = "Vaya, " + tamagochi.energy + "% de energía. Pareces un extra de The Walking Dead.";
+            if (type === 'burnout') msg = "¡Nivel de estrés crítico! Si sigues así, vas a explotar.";
+        } else if (personality.includes('Estricto')) {
+            msg = "¡INACEPTABLE! Tus niveles están por debajo del protocolo. ¡CUMPLE TUS HÁBITOS!";
+        } else {
+            msg = "Tu Evochii te necesita. " + baseMsg + " Por favor, cuídate.";
+        }
+
+        new Notification("⚠️ Evochii en peligro", { body: msg, icon: '/favicon.ico' });
+        sessionStorage.setItem('last_notify_' + type, now);
+    }
+
+    function spawnHabitParticles(habitName) {
+        const container = document.getElementById('avatar-container');
+        if (!container) return;
+
+        let emoji = '⚡';
+        if (habitName.toLowerCase().includes('agua')) emoji = '💧';
+        if (habitName.toLowerCase().includes('ejercicio')) emoji = '🔥';
+        if (habitName.toLowerCase().includes('meditar')) emoji = '🧘';
+        if (habitName.toLowerCase().includes('leer')) emoji = '📚';
+
+        for (let i = 0; i < 10; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.textContent = emoji;
+            p.style.left = Math.random() * 80 + 10 + '%';
+            p.style.setProperty('--d', (Math.random() * 2 + 1) + 's');
+            container.appendChild(p);
+            setTimeout(() => p.remove(), 3000);
+        }
     }
 
     function updateAvatarVisual() {
@@ -1005,25 +1260,16 @@
         const avatarType = tamagochi.avatar || 'chick';
         console.log("Rendering Species:", avatarType);
         
-        // RESET ANATOMY AGGRESSIVELY
+        // RESET ANATOMY AGGRESSIVELY (Total Wipeout)
         face.className = 'evo-face'; 
+        face.style.cssText = ''; // Limpiar estilos inline
         face.classList.add(`face-${avatarType}`);
         
-        // BEAK: Only for birds (chick, owl, penguin)
-        const birds = ['chick', 'owl', 'penguin'];
-        if (birds.includes(avatarType)) {
-            beak.style.display = 'block';
-        } else {
-            beak.style.display = 'none';
-        }
-
-        // NOSE: Only for certain mammals/creatures
-        const hasNose = ['cat', 'dog', 'fox', 'koala', 'monkey', 'panda', 'dragon', 'unicorn', 'lion', 'tiger', 'raccoon', 'hamster'];
-        if (hasNose.includes(avatarType)) {
-            nose.style.display = 'block';
-        } else {
-            nose.style.display = 'none';
-        }
+        // ATOMIC RESET: Wipe all features before rendering new ADN
+        [beak, nose, eyeL, eyeR].forEach(el => { if(el) el.style.cssText = ''; });
+        document.querySelectorAll('.blush').forEach(b => { b.style.cssText = ''; b.style.opacity = '0'; });
+        
+        // VISIBILITY: Now handled by CSS for maximum robustness 🛡️
 
         // BLUSH: Only for biological beings
         const organic = ['chick', 'frog', 'cat', 'dog', 'panda', 'dragon', 'unicorn', 'monkey', 'owl', 'fox', 'koala', 'penguin', 'lion', 'tiger', 'raccoon', 'hamster'];
@@ -1104,11 +1350,15 @@
     function renderHabits(habits) {
         const list = document.getElementById('habits-list');
         const dict = I18N[currentLang] || I18N['es'];
-        if (!habits || habits.length === 0) {
+        
+        // FILTRAR SOLO HÁBITOS ACTIVOS PARA EL DASHBOARD
+        const activeHabits = (habits || []).filter(h => h.is_active);
+
+        if (activeHabits.length === 0) {
             list.innerHTML = `<div style="text-align:center; padding: 20px; color: var(--text-dim);">${dict['lang_msg_no_habits']}</div>`;
             return;
         }
-        list.innerHTML = habits.map(h => `
+        list.innerHTML = activeHabits.map(h => `
             <div class="habit-card ${h.completed_today?'completed':''}">
                 <div class="habit-check ${h.completed_today?'checked':''}" onclick="completeHabit(${h.id})">${h.completed_today?'✓':''}</div>
                 <div style="flex:1"><div>${h.name}</div><div style="font-size:0.7em;color:var(--text-dim)">${(I18N[currentLang]||I18N['es'])['lang_msg_streak']}: ${h.current_streak} 🔥</div></div>
@@ -1121,35 +1371,159 @@
         const token = localStorage.getItem('auth_token');
         try {
             const res = await fetch(`${API_URL}/habits/${id}/complete`, { method:'POST', headers:{'Authorization':`Bearer ${token}`,'Accept':'application/json'} });
+            const data = await res.json();
             if (res.ok) { 
                 loadHabits(); 
-                loadTamagochi(); 
-                const dict = I18N[currentLang] || I18N['es'];
-                showMessage(dict['lang_msg_habit_done'], 'success'); 
+                if (data.tamagochi) {
+                    tamagochi = data.tamagochi;
+                    updateDisplay();
+                }
+                
+                // Efectos visuales de completación
+                const habitName = data.data ? data.data.name : '';
+                spawnHabitParticles(habitName);
+
+                if (data.has_evolved) {
+                    showMessage("✨ ¡TU EVOCHII HA EVOLUCIONADO! ✨", "success");
+                    // Podríamos lanzar confeti aquí o una ráfaga de partículas
+                } else {
+                    const dict = I18N[currentLang] || I18N['es'];
+                    showMessage(dict['lang_msg_habit_done'], 'success'); 
+                }
             }
         } catch(e){ console.error(e); }
     }
 
     function showView(view) {
         const dashboard = document.getElementById('main-dashboard');
-        const config = document.getElementById('onboarding-screen');
-        const onboardingTitle = document.getElementById('onboarding-title');
+        const world = document.getElementById('section-world');
+        const onboarding = document.getElementById('onboarding-screen');
 
-        if (view === 'config') {
-            dashboard.style.display = 'none';
-            config.style.display = 'flex';
-            onboardingTitle.textContent = (I18N[currentLang] || I18N['es'])['lang_options'].replace('⚙️ ', '');
-            history.pushState(null, '', '/configuration');
-        } else {
-            dashboard.style.display = 'flex';
-            dashboard.style.opacity = '1';
-            config.style.display = 'none';
-            history.pushState(null, '', '/dashboard');
+        // Reset display
+        dashboard.style.display = 'none';
+        world.style.display = 'none';
+        onboarding.style.display = 'none';
+        
+        // Reset effects
+        dashboard.style.opacity = '1';
+
+        if (view === 'world') {
+            world.style.display = 'block';
+            loadWorldRankings();
+            window.history.pushState({}, '', '/world');
+        } else if (view === 'dashboard') {
+            dashboard.style.display = 'block';
+            window.history.pushState({}, '', '/dashboard');
+        } else if (view === 'settings') {
+            onboarding.style.display = 'flex';
+            const onboardingTitle = document.getElementById('onboarding-title');
+            if (onboardingTitle) onboardingTitle.textContent = (I18N[currentLang] || I18N['es'])['lang_options'].replace('⚙️ ', '');
+            window.history.pushState({}, '', '/configuration');
         }
     }
 
-    function openSettings() {
-        showView('config');
+    async function loadWorldRankings() {
+        const list = document.getElementById('world-content-list');
+        list.innerHTML = `<div style="text-align:center; padding: 20px;">Cargando Rankings...</div>`;
+        const token = localStorage.getItem('auth_token');
+        try {
+            const res = await fetch(`${API_URL}/community/rankings`, { headers: {'Authorization':`Bearer ${token}`} });
+            const data = await res.json();
+            renderWorldList(data.data, 'rankings');
+        } catch(e) { console.error(e); }
+    }
+
+    async function loadWorldFriends() {
+        const list = document.getElementById('world-content-list');
+        list.innerHTML = `<div style="text-align:center; padding: 20px;">Buscando Amigos...</div>`;
+        const token = localStorage.getItem('auth_token');
+        try {
+            const res = await fetch(`${API_URL}/community/friends`, { headers: {'Authorization':`Bearer ${token}`} });
+            const data = await res.json();
+            renderWorldList(data.data, 'friends');
+        } catch(e) { console.error(e); }
+    }
+
+    function renderWorldList(items, type) {
+        const list = document.getElementById('world-content-list');
+        list.innerHTML = '';
+        if (!items || items.length === 0) {
+            list.innerHTML = '<p style="text-align:center;">No hay datos disponibles.</p>';
+            return;
+        }
+
+        items.forEach((item, idx) => {
+            const card = document.createElement('div');
+            card.className = 'habit-card'; // Reusamos estilos
+            card.style.opacity = '1';
+            card.style.transform = 'none';
+            card.innerHTML = `
+                <div style="font-size: 2em;">${idx === 0 && type === 'rankings' ? '👑' : (type === 'friends' ? '👤' : '🔥')}</div>
+                <div style="flex: 1;">
+                    <div style="font-weight: 800; color: var(--neon-blue);">${item.name} <span style="font-size: 0.7em; color: var(--text-dim);">@${item.user_name}</span></div>
+                    <div style="font-size: 0.8em; color: var(--text-dim);">${item.thought || 'Viviendo el momento...'}</div>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <button class="nav-btn" onclick="socialInteract(${item.id}, 'feed')" style="padding: 5px 10px; font-size: 0.9em; border-color: #ff9d00; color: #ff9d00;">🍎</button>
+                    <button class="nav-btn" onclick="socialInteract(${item.id}, 'pet')" style="padding: 5px 10px; font-size: 0.9em; border-color: #ff0055; color: #ff0055;">❤️</button>
+                </div>
+            `;
+            list.appendChild(card);
+        });
+    }
+
+    async function socialInteract(targetId, type) {
+        const token = localStorage.getItem('auth_token');
+        try {
+            const res = await fetch(`${API_URL}/community/interact`, {
+                method: 'POST',
+                headers: {'Authorization':`Bearer ${token}`, 'Content-Type':'application/json'},
+                body: JSON.stringify({target_id: targetId, type: type})
+            });
+            if (res.ok) {
+                const msg = type === 'feed' ? '¡Le has dado de comer!' : '¡Le has dado caricias!';
+                showMessage(msg, 'success');
+            }
+        } catch(e) { console.error(e); }
+    }
+
+    async function openSettings() {
+        showView('settings');
+        if (tamagochi) {
+            setAvatar(tamagochi.avatar || 'chick');
+            setPersonality(tamagochi.ai_personality || 'Colega sarcástico');
+            
+            // Cargar hábitos actuales
+            const token = localStorage.getItem('auth_token');
+            try {
+                const res = await fetch(`${API_URL}/habits`, { headers: {'Authorization':`Bearer ${token}`,'Accept':'application/json'} });
+                const data = await res.json();
+                if (res.ok && data.data) {
+                    selectedHabits = data.data.filter(h => h.is_active).map(h => {
+                        const mapped = {
+                            '💤 Rutina pre-dormir': 'sleep', '🏋️ Ejercicio diario': 'exercise', '🍎 Alimentación sana': 'food',
+                            '📵 Limitar móvil': 'mobile', '📚 Leer / Aprender': 'read', '🧘 Pausa activa': 'stretch',
+                            '💧 Beber Agua': 'water', '🧠 Meditación': 'meditate', '📅 Planificar Día': 'plan',
+                            '✨ Agradecimiento': 'thanks', '🏠 Orden y Limpieza': 'order', '📔 Diario Personal': 'journal'
+                        };
+                        return mapped[h.name] || null;
+                    }).filter(k => k !== null);
+                    
+                    document.querySelectorAll('.habit-opt').forEach(el => {
+                        const h = el.dataset.h;
+                        if (selectedHabits.includes(h)) el.classList.add('selected');
+                        else el.classList.remove('selected');
+                    });
+                }
+            } catch(e) {}
+
+            try {
+                const ctx = JSON.parse(tamagochi.context_vital);
+                if (ctx.edad) document.getElementById('bio-age').value = ctx.edad;
+                if (ctx.trabajo) document.getElementById('bio-job').value = ctx.trabajo;
+                if (ctx.objetivo) setGoal(ctx.objetivo);
+            } catch(e) {}
+        }
     }
 
     function closeSettings() {
@@ -1220,6 +1594,12 @@
     loadTamagochi();
     startAlertSystem();
     updateClock();
+
+    // Route Persistence
+    const path = window.location.pathname;
+    if (path === '/world') showView('world');
+    else if (path === '/configuration') showView('settings');
+    else showView('dashboard');
     </script>
 </body>
 </html>

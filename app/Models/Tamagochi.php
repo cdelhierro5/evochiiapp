@@ -11,6 +11,11 @@ class Tamagochi extends Model
 
     protected $table = 'tamagochis';
 
+    protected $appends = ['xp'];
+
+    public function getXpAttribute() { return $this->experience; }
+    public function setXpAttribute($value) { $this->experience = $value; }
+
     protected $fillable = [
         'user_id',
         'name',
@@ -30,6 +35,8 @@ class Tamagochi extends Model
         'foco',
         'zen',
         'current_thought',
+        'evolution_points',
+        'last_reset_at',
     ];
 
     protected $casts = [
@@ -38,6 +45,7 @@ class Tamagochi extends Model
         'foco' => 'integer',
         'zen' => 'integer',
         'energy' => 'integer',
+        'last_reset_at' => 'datetime',
     ];
 
     /**
@@ -97,20 +105,43 @@ class Tamagochi extends Model
      */
     public function applyHabitReward($habit)
     {
-        $this->energy = min(100, $this->energy + $habit->reward_energy);
-        $this->happiness = min(100, $this->happiness + $habit->reward_happiness);
-        $this->health = min(100, $this->health + $habit->reward_health);
-        $this->hunger = max(0, $this->hunger - 5);
+        // 1. Aplicar Impactos de Stats (Matriz)
+        $this->energy = max(0, min(100, $this->energy + $habit->energy_impact));
+        $this->foco = max(0, min(100, $this->foco + $habit->focus_impact));
+        $this->zen = max(0, min(100, $this->zen + $habit->zen_impact));
+        
+        // Recompensas base heredadas (si existen)
+        if ($habit->reward_energy > 0) $this->energy = min(100, $this->energy + $habit->reward_energy);
+        if ($habit->reward_happiness > 0) $this->happiness = min(100, $this->happiness + $habit->reward_happiness);
+        if ($habit->reward_health > 0) $this->health = min(100, $this->health + $habit->reward_health);
 
-        $this->experience += 15;
-        if ($this->experience >= 100 * $this->level) {
+        // 2. Sistema de XP y Evolución
+        $xpGained = $habit->xp_reward ?? 10;
+        
+        // Regla especial: "Ejercicio Físico" da el doble de XP
+        if (stripos($habit->name, 'ejercicio') !== false || stripos($habit->name, 'deporte') !== false) {
+            $xpGained *= 2;
+        }
+
+        $this->experience += $xpGained;
+        $hasEvolved = false;
+
+        // Umbral de evolución: 100 * nivel actual
+        $threshold = 100 * $this->level;
+        if ($this->experience >= $threshold) {
             $this->level++;
-            $this->experience = 0;
+            $this->experience -= $threshold; // Mantener sobrante
+            $hasEvolved = true;
+            $this->evolution_points += 5; // Recompensa por nivel
         }
 
         $this->updateStatus()->save();
 
-        return $this;
+        return [
+            'tamagochi' => $this,
+            'has_evolved' => $hasEvolved,
+            'xp_gained' => $xpGained
+        ];
     }
 
     /**

@@ -25,6 +25,11 @@ use App\Http\Controllers\HabitController;
 Route::post('/auth/register', [AuthController::class, 'register']);
 Route::post('/auth/login', [AuthController::class, 'login']);
 
+// Evochii World (Comunidad)
+Route::get('/community/rankings', [CommunityController::class, 'rankings']);
+Route::get('/community/friends', [CommunityController::class, 'friends']);
+Route::post('/community/interact', [CommunityController::class, 'socialInteract']);
+
 // Rutas públicas de estadísticas
 Route::get('/statistics/leaderboard', [StatisticsController::class, 'leaderboard']);
 Route::get('/statistics/global', [StatisticsController::class, 'globalStats']);

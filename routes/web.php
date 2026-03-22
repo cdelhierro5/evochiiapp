@@ -25,6 +25,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
+Route::get('/world', function () {
+    return view('dashboard');
+})->name('world');
+
 Route::get('/configuration', function () {
     return view('dashboard'); // Potencialmente podemos usar la misma vista con lógica de toggle
 })->name('configuration');
