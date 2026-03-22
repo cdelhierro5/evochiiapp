@@ -86,6 +86,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Relación con Hábitos del usuario
+     */
+    public function habits()
+    {
+        return $this->hasMany(Habit::class);
+    }
+
+    /**
      * Crear estadísticas y configuración cuando se crea un usuario
      */
     protected static function boot()

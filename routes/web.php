@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
 Route::get('/login', function () {
@@ -25,4 +25,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
+Route::get('/configuration', function () {
+    return view('dashboard'); // Potencialmente podemos usar la misma vista con lógica de toggle
+})->name('configuration');
 
+Route::any('/logout', function() {
+    return redirect('/login');
+})->name('logout');

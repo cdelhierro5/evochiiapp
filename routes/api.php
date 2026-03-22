@@ -8,6 +8,8 @@ use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\AdminController;
 
+use App\Http\Controllers\HabitController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -44,6 +46,19 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/play', [TamagochiController::class, 'play'])->name('tamagochi.play');
         Route::post('/sleep', [TamagochiController::class, 'sleep'])->name('tamagochi.sleep');
         Route::put('/update-name', [TamagochiController::class, 'updateName'])->name('tamagochi.updateName');
+        Route::put('/avatar', [TamagochiController::class, 'updateAvatar'])->name('tamagochi.updateAvatar');
+        Route::post('/sync', [TamagochiController::class, 'sync'])->name('tamagochi.sync');
+        Route::post('/interact', [TamagochiController::class, 'interact'])->name('tamagochi.interact');
+    });
+
+    // Hábitos
+    Route::prefix('habits')->group(function () {
+        Route::get('/', [HabitController::class, 'index'])->name('habits.index');
+        Route::post('/', [HabitController::class, 'store'])->name('habits.store');
+        Route::put('/{id}', [HabitController::class, 'update'])->name('habits.update');
+        Route::delete('/{id}', [HabitController::class, 'destroy'])->name('habits.destroy');
+        Route::post('/{id}/complete', [HabitController::class, 'complete'])->name('habits.complete');
+        Route::get('/stats', [HabitController::class, 'stats'])->name('habits.stats');
     });
 
     // Estadísticas del usuario
